@@ -32,6 +32,13 @@ import java.util.Arrays;
  * and invoking Wizard Manager to start the next action.
  */
 public final class WizardManagerHelper {
+  /** Window brightness passed in the wizard bundle to delegated setup screens. */
+  public static final String EXTRA_SETUP_WINDOW_BRIGHTNESS = "setupWindowBrightness";
+
+  public static float getSetupWindowBrightness(Intent intent) {
+    android.os.Bundle state = intent.getBundleExtra(EXTRA_WIZARD_BUNDLE);
+    return state == null ? -1f : state.getFloat(EXTRA_SETUP_WINDOW_BRIGHTNESS, -1f);
+  }
 
   /** Enum for notifying an Activity that what SetupWizard flow is */
   public enum SuwLifeCycleEnum {

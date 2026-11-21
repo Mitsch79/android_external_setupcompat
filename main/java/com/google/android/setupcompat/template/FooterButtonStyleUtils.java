@@ -289,8 +289,13 @@ public class FooterButtonStyleUtils {
         textDefaultColor =
             PartnerConfigHelper.get(context).getColor(context, buttonTextColorConfig);
       }
-      float alpha =
-          PartnerConfigHelper.get(context).getFraction(context, buttonRippleColorAlphaConfig);
+      PartnerConfigHelper config = PartnerConfigHelper.get(context);
+      if (!config.isPartnerConfigAvailable(buttonRippleColorAlphaConfig)) {
+        // Preserve a visible pressed and focused state without a customization provider.
+        updateButtonRippleColor(button, button.getCurrentTextColor(), 0.20f);
+        return;
+      }
+      float alpha = config.getFraction(context, buttonRippleColorAlphaConfig);
       updateButtonRippleColor(button, textDefaultColor, alpha);
     }
   }

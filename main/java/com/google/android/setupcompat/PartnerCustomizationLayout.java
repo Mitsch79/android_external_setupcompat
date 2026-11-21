@@ -170,6 +170,14 @@ public class PartnerCustomizationLayout extends TemplateLayout {
     activity = lookupActivityFromContext(getContext());
 
     boolean isSetupFlow = WizardManagerHelper.isAnySetupWizard(activity.getIntent());
+    if (isSetupFlow && WizardManagerHelper.isInitialSetupWizard(activity.getIntent())) {
+      float brightness = WizardManagerHelper.getSetupWindowBrightness(activity.getIntent());
+      if (brightness >= 0f && brightness <= 1f) {
+        WindowManager.LayoutParams params = activity.getWindow().getAttributes();
+        params.screenBrightness = brightness;
+        activity.getWindow().setAttributes(params);
+      }
+    }
 
     TypedArray a =
         getContext()
