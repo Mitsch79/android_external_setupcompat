@@ -1100,7 +1100,8 @@ public class PartnerConfigHelper {
 
   private static Bundle callPartner(Context context, String method) {
     ContentResolver resolver = context.getContentResolver();
-    if (!"org.lineageos.setupwizard".equals(context.getPackageName())) {
+    String caller = context.getPackageName();
+    if (!"org.lineageos.setupwizard".equals(caller) && !"com.android.settings".equals(caller)) {
       return resolver.call(getContentUri(), method, null, null);
     }
     synchronized (missingUntil) {
